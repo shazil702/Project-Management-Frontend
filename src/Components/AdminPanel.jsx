@@ -1,11 +1,7 @@
-import Admin from '../assets/images/Admin.jpeg';
 import User1 from '../assets/images/User1.jpeg';
 import { PieChart, Pie, Tooltip, BarChart,Bar} from "recharts";
-import AdminSidebar from './AdminSidebar';
 
-
-
-const AdminPanel = ({sidebar,updateSidebar}) => {
+const AdminPanel = ({sidebar}) => {
   const data = [
     { name: "Male", employee: 400, fill:"blue" },
     { name: "Female", employee: 700, fill:'pink' },
@@ -18,21 +14,6 @@ const barData = [
   return (
     <div className="flex h-full bg-gray-100">
     <div className={`flex-1 ${sidebar ? 'ml-64' : 'ml-8'}`}>
-      {/* Fixed Header */}
-      <div className={`fixed top-0 left-0 flex justify-between items-center py-2 px-8 bg-gray-100 z-40 ${sidebar ? 'ml-64 w-full' : 'ml-8 w-full'}`}>
-        <div className="relative">
-          <input type="text" placeholder="Search" className="pl-4 pr-4 py-2 rounded-full border" />
-          
-        </div>
-        <div className={`flex ${sidebar && 'mr-60'}`}>
-          <div className="mr-4 text-right">
-            <div className="font-semibold">Admin</div>
-            <div className="text-sm text-gray-600">Admin Profile</div>
-          </div>
-          <img src={Admin} alt="Admin" className="w-12 h-12 rounded-full" />
-        </div>
-      </div>
-
       {/* Statistics */}
       <div className="pt-24 p-">
         <div className="grid grid-cols-2 gap-4 mb-8">
