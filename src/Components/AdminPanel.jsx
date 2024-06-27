@@ -1,52 +1,30 @@
-import Logo from '../assets/images/Logo.jpg';
 import Admin from '../assets/images/Admin.jpeg';
 import User1 from '../assets/images/User1.jpeg';
-import { useState } from 'react';
-import { IoMenu } from "react-icons/io5";
+import { PieChart, Pie, Tooltip, BarChart,Bar} from "recharts";
+import AdminSidebar from './AdminSidebar';
 
 
-const AdminPanel = () => {
-  const [sidebar, setSidebar] = useState(true);
-  const updateSidebar = () => {
-    setSidebar(!sidebar);
-  }
+
+const AdminPanel = ({sidebar,updateSidebar}) => {
+  const data = [
+    { name: "Male", employee: 400, fill:"blue" },
+    { name: "Female", employee: 700, fill:'pink' },
+];
+const barData = [
+  { name: "Technical scripter", students: 700,fill:'blue' },
+  { name: "Geek-i-knack", students: 400,fill:'green' },
+  { name: "Geek-o-mania", students: 1000,fill:'orange' },
+];
   return (
     <div className="flex h-full bg-gray-100">
-    {/* Sidebar */}
-    <div className={`h-full fixed top-0 left-0 z-50 ${sidebar ? 'w-64 bg-blue-500' : 'bg-gray-100 w-8'} text-white`}>
-      <button onClick={updateSidebar} className={`${sidebar ? 'float-right text-4xl mt-4 mr-2' : 'float-left text-3xl text-black mt-6 ml-4'}`}>
-        <IoMenu />
-      </button>
-      {sidebar && (
-        <div>
-          <div className="mb-8 mt-4">
-            <img src={Logo} alt="Logo" className="rounded-full w-20 h-20 mx-auto" />
-          </div>
-          <nav>
-            <ul>
-              <li className="mb-4"><a href="#" className="hover:text-gray-300">Dashboard</a></li>
-              <li className="mb-4"><a href="#" className="hover:text-gray-300">Project</a></li>
-              <li className="mb-4"><a href="#" className="hover:text-gray-300">Client</a></li>
-              <li className="mb-4"><a href="#" className="hover:text-gray-300">Product Owner</a></li>
-              <li className="mb-4"><a href="#" className="hover:text-gray-300">Messages</a></li>
-              <li className="mb-4"><a href="#" className="hover:text-gray-300">Meetings</a></li>
-            </ul>
-          </nav>
-        </div>
-      )}
-    </div>
-
-    {/* Main Content */}
     <div className={`flex-1 ${sidebar ? 'ml-64' : 'ml-8'}`}>
       {/* Fixed Header */}
-      <div className={`fixed top-0 left-0 flex justify-between items-center p-8 bg-gray-100 z-40 ${sidebar ? 'ml-64 w-full' : 'ml-8 w-full'}`}>
+      <div className={`fixed top-0 left-0 flex justify-between items-center py-2 px-8 bg-gray-100 z-40 ${sidebar ? 'ml-64 w-full' : 'ml-8 w-full'}`}>
         <div className="relative">
-          <input type="text" placeholder="Search" className="pl-10 pr-4 py-2 rounded-full border" />
-          <svg className="w-6 h-6 absolute left-3 top-2.5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M12.9 14.32A8 8 0 112.68 4.1a8 8 0 0110.22 10.23zM9 11a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
-          </svg>
+          <input type="text" placeholder="Search" className="pl-4 pr-4 py-2 rounded-full border" />
+          
         </div>
-        <div className="flex items-center">
+        <div className={`flex ${sidebar && 'mr-60'}`}>
           <div className="mr-4 text-right">
             <div className="font-semibold">Admin</div>
             <div className="text-sm text-gray-600">Admin Profile</div>
@@ -56,38 +34,67 @@ const AdminPanel = () => {
       </div>
 
       {/* Statistics */}
-      <div className="pt-24 p-8">
+      <div className="pt-24 p-">
         <div className="grid grid-cols-2 gap-4 mb-8">
-          <div className="bg-white p-6 rounded-lg shadow">
-            <h3 className="text-xl mb-4">Total Employees</h3>
-            <div className="flex items-center">
-              <div className="w-32 h-32 bg-pink-200 rounded-full relative">
-                <div className="w-16 h-16 bg-blue-500 rounded-full absolute top-8 left-8"></div>
-              </div>
-              <div className="ml-4 text-3xl font-semibold">452</div>
+        <div className="bg-white p-6 rounded-lg shadow relative">
+    <div className='flex justify-between items-center mb-4'>
+        <h3 className="text-xl">Total Employees</h3>
+        <h1 className={`text-2xl ${sidebar ? 'pl-8' : 'pl-4'} mt-2`}>450</h1>
+    </div>
+    <div className={`flex ${sidebar ? 'flex-col' : 'flex-col md:flex-row'} items-center justify-center`}>
+        <div
+            style={{
+                textAlign: "center",
+                height: 250,
+                width: 250,
+                marginRight: "auto"
+            }}>
+            <PieChart width={250} height={250}>
+                <Tooltip />
+                <Pie
+                    data={data}
+                    dataKey="employee"
+                    innerRadius={70}
+                    outerRadius={90}
+                    fill="#8884d8"
+                />
+            </PieChart>
+        </div>
+        <div className={`flex flex-col justify-center mt-4 md:mt-0 ${sidebar ? '' : 'md:absolute md:right-8 md:top-0 md:bottom-0'}`}>
+            <div className='flex space-x-3 items-center mb-2'>
+                <div className='rounded-full bg-pink-500 w-2 h-2'></div>
+                <span className="text-pink-500">Female</span>
             </div>
-            <div className="mt-4 flex justify-between">
-              <span className="text-blue-500">Male</span>
-              <span className="text-pink-500">Female</span>
+            <div className='flex space-x-3 items-center mt-2'>
+                <div className='rounded-full bg-blue-500 w-2 h-2'></div>
+                <span className="text-blue-500">Male</span>
             </div>
-          </div>
+        </div>
+    </div>
+</div>
           <div className="bg-white p-6 rounded-lg shadow">
             <h3 className="text-xl mb-4">Projects</h3>
-            <div className="flex items-center">
-              <div className="flex-1">
-                <div className="h-6 bg-blue-500 mb-2"></div>
-                <div className="h-6 bg-green-500 mb-2"></div>
-                <div className="h-6 bg-orange-500"></div>
+            <div className='space-x-4'>
+            <BarChart width={350} height={250} data={barData}  barCategoryGap='20%' barGap={30}>
+            <Bar dataKey="students"/>
+        </BarChart>
+        <div className="absolute right-36 top-0 bottom-44 flex flex-col justify-center">
+      <div className='flex space-x-3 items-center mb-2'>
+              <div className='rounded-sm bg-blue-700 w-3 h-3'></div>
+              <span className="">Female</span>
               </div>
-              <div className="ml-4">
-                <div>Total: 35</div>
-                <div>Completed: 20</div>
-                <div>On Progress: 15</div>
+              <div className='flex space-x-3 items-center mb-2'>
+              <div className='bg-green-700 w-3 h-3 rounded-sm'></div>
+              <span className="">Male</span>
+              </div>
+              <div className='flex space-x-3 items-center'>
+              <div className='bg-orange-400 w-3 h-3 rounded-sm'></div>
+              <span className="">Male</span>
               </div>
             </div>
+        </div>
           </div>
         </div>
-
         {/* Employee Table */}
         <div className="bg-white p-6 rounded-lg shadow">
           <h3 className="text-xl mb-4">Employees</h3>

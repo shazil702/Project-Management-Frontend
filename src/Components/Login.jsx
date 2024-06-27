@@ -1,6 +1,5 @@
 import React from 'react';
 import LoginImage from '../assets/images/Login.jpg';
-import Logo from '../assets/images/Logo.jpg';
 
 function Login() {
     return (
