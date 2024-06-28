@@ -3,7 +3,7 @@ import { IoMenu } from "react-icons/io5";
 
 const AdminSidebar = ({sidebar,updateSidebar}) => {
      return(
-        <div className={`h-full fixed top-0 left-0 z-50 ${sidebar ? 'w-64 bg-blue-500' : 'bg-gray-100 w-8'} text-white`}>
+      <div className={`h-full fixed top-0 left-0 z-50 ${sidebar ? 'w-16 xs:w-32 sm:w-48 md:w-64 lg:w-64 bg-blue-500' : 'w-2 xs:w-4 sm:w-8 bg-gray-100'} text-white`}>
         <button onClick={updateSidebar} className={`${sidebar ? 'float-right text-4xl mt-4 mr-2' : 'float-left text-3xl text-black mt-6 ml-4'}`}>
           <IoMenu />
         </button>

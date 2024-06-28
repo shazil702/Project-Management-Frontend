@@ -3,6 +3,8 @@ import AdminSidebar from "./AdminSidebar";
 import AdminPanel from "./AdminPanel";
 import NavBar from "./Nav";
 import ClientView from "./ClientView";
+import ProjectView from "./ProjectView";
+import ClientDetail from "./ClientDetail";
 
 const AdminLayout = () => {
     const [sidebar, setSidebar] = useState(true);
@@ -12,9 +14,11 @@ const AdminLayout = () => {
   return(
     <div className="">
         {/* <AdminSidebar sidebar={sidebar} updateSidebar={updateSidebar}/>
-        <NavBar sidebar={sidebar}/> */}
-        {/* <AdminPanel sidebar={sidebar}/> */}
-        <ClientView />
+        <NavBar sidebar={sidebar}/>  */}
+         {/* <AdminPanel sidebar={sidebar}/> */}
+        {/* <ClientView sidebar={sidebar}/> */}
+        {/* <ProjectView/> */}
+        <ClientDetail/>
     </div>
   );
 };
