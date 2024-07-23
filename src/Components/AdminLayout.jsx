@@ -5,6 +5,7 @@ import NavBar from "./Nav";
 import ClientView from "./ClientView";
 import ProjectView from "./ProjectView";
 import ClientDetail from "./ClientDetail";
+import AdminMessage from "./AdminMessage";
 
 const AdminLayout = () => {
     const [sidebar, setSidebar] = useState(true);
@@ -18,7 +19,8 @@ const AdminLayout = () => {
          {/* <AdminPanel sidebar={sidebar}/> */}
         {/* <ClientView sidebar={sidebar}/> */}
         {/* <ProjectView/> */}
-        <ClientDetail/>
+        {/* <ClientDetail/> */}
+        {<AdminMessage/>}
     </div>
   );
 };
