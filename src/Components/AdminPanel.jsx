@@ -1,7 +1,10 @@
+import { useEffect, useState } from 'react';
 import User1 from '../assets/images/User1.jpeg';
 import { PieChart, Pie, Tooltip, BarChart,Bar} from "recharts";
+import axios from 'axios';
 
 const AdminPanel = ({sidebar}) => {
+  const [employees, setEmployees] = useState([]);
   const data = [
     { name: "Male", employee: 400, fill:"blue" },
     { name: "Female", employee: 700, fill:'pink' },
@@ -11,16 +14,29 @@ const barData = [
   { name: "Geek-i-knack", students: 400,fill:'green' },
   { name: "Geek-o-mania", students: 1000,fill:'orange' },
 ];
+useEffect(()=>{
+  const fetchdata = async ()=>{
+    try{
+      const response = await axios.get('http://127.0.0.1:8000/hr/viewEmployee/')
+      setEmployees(response.data)
+      console.log(response.data);
+      
+    }catch(error){
+      console.log(error);
+      
+    }
+  }
+  fetchdata();
+},[])
   return (
     <div className="flex h-full bg-gray-100">
     <div className={`flex-1 ${sidebar ? 'ml-64' : 'ml-8'}`}>
-      {/* Statistics */}
       <div className="pt-24 p-">
         <div className="grid grid-cols-2 gap-4 mb-8">
         <div className="bg-white p-6 rounded-lg shadow relative">
     <div className='flex justify-between items-center mb-4'>
         <h3 className="text-xl">Total Employees</h3>
-        <h1 className={`text-2xl ${sidebar ? 'pl-8' : 'pl-4'} mt-2`}>450</h1>
+        <h1 className={`text-2xl ${sidebar ? 'pl-8' : 'pl-4'} mt-2`}>{employees.length}</h1>
     </div>
     <div className={`flex ${sidebar ? 'flex-col' : 'flex-col md:flex-row'} items-center justify-center`}>
         <div
@@ -76,7 +92,6 @@ const barData = [
         </div>
           </div>
         </div>
-        {/* Employee Table */}
         <div className="bg-white p-6 rounded-lg shadow">
           <h3 className="text-xl mb-4">Employees</h3>
           <table className="min-w-full bg-white">
@@ -92,51 +107,17 @@ const barData = [
               </tr>
             </thead>
             <tbody>
+              {employees.map((employee)=>(
               <tr>
-                <td className="text-center py-2">1</td>
+                <td className="text-center py-2">{employee.id}</td>
                 <td className="text-center py-2"><img src={User1} alt="User" className="w-10 h-10 rounded-full mx-auto" /></td>
-                <td className="text-center py-2">User</td>
-                <td className="text-center py-2">user@gmail.com</td>
+                <td className="text-center py-2">{employee.username}</td>
+                <td className="text-center py-2">{employee.email}</td>
                 <td className="text-center py-2">Team 1</td>
                 <td className="text-center py-2">Backend Developer</td>
                 <td className="text-center py-2">29/10/2005</td>
               </tr>
-              <tr>
-                <td className="text-center py-2">1</td>
-                <td className="text-center py-2"><img src={User1} alt="User" className="w-10 h-10 rounded-full mx-auto" /></td>
-                <td className="text-center py-2">User</td>
-                <td className="text-center py-2">user@gmail.com</td>
-                <td className="text-center py-2">Team 1</td>
-                <td className="text-center py-2">Backend Developer</td>
-                <td className="text-center py-2">29/10/2005</td>
-              </tr>
-              <tr>
-                <td className="text-center py-2">1</td>
-                <td className="text-center py-2"><img src={User1} alt="User" className="w-10 h-10 rounded-full mx-auto" /></td>
-                <td className="text-center py-2">User</td>
-                <td className="text-center py-2">user@gmail.com</td>
-                <td className="text-center py-2">Team 1</td>
-                <td className="text-center py-2">Backend Developer</td>
-                <td className="text-center py-2">29/10/2005</td>
-              </tr>
-              <tr>
-                <td className="text-center py-2">1</td>
-                <td className="text-center py-2"><img src={User1} alt="User" className="w-10 h-10 rounded-full mx-auto" /></td>
-                <td className="text-center py-2">User</td>
-                <td className="text-center py-2">user@gmail.com</td>
-                <td className="text-center py-2">Team 1</td>
-                <td className="text-center py-2">Backend Developer</td>
-                <td className="text-center py-2">29/10/2005</td>
-              </tr>
-              <tr>
-                <td className="text-center py-2">1</td>
-                <td className="text-center py-2"><img src={User1} alt="User" className="w-10 h-10 rounded-full mx-auto" /></td>
-                <td className="text-center py-2">User</td>
-                <td className="text-center py-2">user@gmail.com</td>
-                <td className="text-center py-2">Team 1</td>
-                <td className="text-center py-2">Backend Developer</td>
-                <td className="text-center py-2">29/10/2005</td>
-              </tr>
+              ))}
             </tbody>
           </table>
         </div>

@@ -14,13 +14,13 @@ const AdminLayout = () => {
   }
   return(
     <div className="">
-        {/* <AdminSidebar sidebar={sidebar} updateSidebar={updateSidebar}/>
-        <NavBar sidebar={sidebar}/>  */}
-         {/* <AdminPanel sidebar={sidebar}/> */}
-        {/* <ClientView sidebar={sidebar}/> */}
+        <AdminSidebar sidebar={sidebar} updateSidebar={updateSidebar}/>
+        <NavBar sidebar={sidebar}/> 
+         <AdminPanel sidebar={sidebar}/>
+        {/* <ClientView sidebar={sidebar}/>
         {/* <ProjectView/> */}
         {/* <ClientDetail/> */}
-        {<AdminMessage/>}
+        {/* {<AdminMessage/>} */}
     </div>
   );
 };
