@@ -17,8 +17,8 @@ const AdminLayout = () => {
         {/* <AdminSidebar sidebar={sidebar} updateSidebar={updateSidebar}/>
         <NavBar sidebar={sidebar}/> 
          <AdminPanel sidebar={sidebar}/> */}
-        {/* <ClientView sidebar={sidebar}/> */}
-         <ProjectView/> 
+         <ClientView sidebar={sidebar}/> 
+         {/* <ProjectView/>  */}
         {/* <ClientDetail/> */}
         {/* {<AdminMessage/>} */}
     </div>
