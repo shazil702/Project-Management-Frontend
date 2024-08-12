@@ -1,13 +1,19 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 const ProjectView = () => {
-    const projects = [
-      { name: "Project Name", members: 5, duration: "2 Months", status: "Completed" },
-      { name: "Project Name", members: 5, duration: "2 Months", status: "On Progress" },
-      { name: "Project Name", members: 5, duration: "2 Months", status: "On Progress" },
-      { name: "Project Name", members: 5, duration: "2 Months", status: "Completed" },
-      { name: "Project Name", members: 5, duration: "2 Months", status: "Completed" },
-      { name: "Project Name", members: 5, duration: "2 Months", status: "On Progress" },
-    ];
-  
+   const [projects, setProjects] = useState([])
+   useEffect(()=>{
+    const fetchdata = async ()=>{
+      try{
+        const response = await axios.get('http://127.0.0.1:8000/project/viewAllProjects/')
+        setProjects(response.data);
+      }catch(error){
+        console.log(error);
+      }
+    } 
+    fetchdata();
+   },[])
     return (
       <div className="flex min-h-screen">
         <div className="w-full p-8">
@@ -25,7 +31,7 @@ const ProjectView = () => {
                 key={index}
                 className="bg-blue-100 p-4 rounded-lg shadow-md"
               >
-                <h2 className="text-lg font-bold mb-2">{project.name}</h2>
+                <h2 className="text-lg font-bold mb-2">{project.projectName}</h2>
                 <p className="mb-1">5 Members</p>
                 <p className="mb-1">2 Months</p>
                 <span

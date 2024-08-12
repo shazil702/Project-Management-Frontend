@@ -14,11 +14,11 @@ const AdminLayout = () => {
   }
   return(
     <div className="">
-        <AdminSidebar sidebar={sidebar} updateSidebar={updateSidebar}/>
+        {/* <AdminSidebar sidebar={sidebar} updateSidebar={updateSidebar}/>
         <NavBar sidebar={sidebar}/> 
-         <AdminPanel sidebar={sidebar}/>
-        {/* <ClientView sidebar={sidebar}/>
-        {/* <ProjectView/> */}
+         <AdminPanel sidebar={sidebar}/> */}
+        {/* <ClientView sidebar={sidebar}/> */}
+         <ProjectView/> 
         {/* <ClientDetail/> */}
         {/* {<AdminMessage/>} */}
     </div>
