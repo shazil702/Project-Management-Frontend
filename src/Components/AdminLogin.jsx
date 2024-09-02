@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LoginImage from '../assets/images/Login.jpg';
 import axios from 'axios';
 
 const AdminLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const login = async e => {
         e.preventDefault();
@@ -15,10 +17,13 @@ const AdminLogin = () => {
         try{
             const {data} = await axios.post('http://127.0.0.1:8000/authentication/admintoken/',user)
             console.log(data);
+            localStorage.clear();
+            localStorage.setItem('admin_access_token', data.access);
+            localStorage.setItem('admin_refresh_token', data.refresh);
+            navigate('/admin/dashboard');
         }
         catch(error){
             console.log(error);
-            
         }
     }
     return (

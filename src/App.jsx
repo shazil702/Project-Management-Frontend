@@ -1,8 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AdminLayout from "./Components/AdminLayout";
-import AdminPanel from "./Components/AdminPanel";
 import Login from "./Components/Login";
 import AdminRoutes from "./routes/AdminRoutes";
+import HrRoutes from "./routes/HrRoutes";
 
 
 function App() {
@@ -11,7 +10,9 @@ function App() {
   return (
    <BrowserRouter>
    <Routes>
-    <Route path="/admin" element={<AdminRoutes/>}/>
+    <Route path="/" element={<Login/>}/>
+    <Route path="/admin/*" element={<AdminRoutes/>}/>
+    <Route path="/hr/*" element={<HrRoutes/>}/>
     </Routes>
     </BrowserRouter>
   )
