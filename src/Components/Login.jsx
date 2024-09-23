@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import LoginImage from '../assets/images/Login.jpg';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
     const [otpToken, setOtpToken] = useState('');
@@ -30,7 +32,9 @@ function Login() {
         };
         try{
             const {data} = await axios.post('http://127.0.0.1:8000/authentication/verifyOTP/',user);
-            console.log(data);
+            if(data.role === 'HR'){
+                navigate('/hr/')
+            }
         }
         catch(error){
             console.log(error);

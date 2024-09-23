@@ -1,10 +1,13 @@
 import { Route, Routes } from "react-router-dom"
 import HrLayout from "../layouts/HrLayout"
+import HrDashboard from "../Components/HrDashboard"
 
 const HrRoutes = ()=>{
     return(
         <Routes>
-            <Route path="/" element={<HrLayout/>}/>
+            <Route element={<HrLayout/>}>
+            <Route path="/" element={<HrDashboard/>}/>
+            </Route>
         </Routes>
     )
 }
