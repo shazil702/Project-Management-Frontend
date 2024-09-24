@@ -3,6 +3,7 @@ import Login from "./Components/Login";
 import AdminRoutes from "./routes/AdminRoutes";
 import HrRoutes from "./routes/HrRoutes";
 import ProjectDetail from "./Components/ProjectDetail";
+import TaskDetail from "./Components/TaskDetail";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
     <Route path="/admin/*" element={<AdminRoutes/>}/>
     <Route path="/hr/*" element={<HrRoutes/>}/>
     <Route path='/project' element={<ProjectDetail/>}/>
+    <Route path="/task" element={<TaskDetail/>}/>
     </Routes>
     </BrowserRouter>
   )
