@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import User1 from '../assets/images/User1.jpeg';
+import User1 from '../../assets/images/User1.jpeg';
 import { PieChart, Pie, Tooltip, BarChart,Bar} from "recharts";
 import axios from 'axios';
 

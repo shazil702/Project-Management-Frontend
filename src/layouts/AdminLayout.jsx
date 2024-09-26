@@ -1,5 +1,5 @@
-import AdminSidebar from "../Components/AdminSidebar";
-import NavBar from "../Components/Nav";
+import AdminSidebar from "../Components/Admin/AdminSidebar";
+import NavBar from "../Components/Admin/Nav";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
 

@@ -1,4 +1,4 @@
-import User1 from '../assets/images/User1.jpeg';
+import User1 from '../../assets/images/User1.jpeg';
 
 const AdminMessage = () => {
   return (

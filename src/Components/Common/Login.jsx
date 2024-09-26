@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import LoginImage from '../assets/images/Login.jpg';
+import LoginImage from '../../assets/images/Login.jpg';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { baseUrl } from '../constants/constants';
+import { baseUrl } from '../../constants/constants';
 
 function Login() {
     const navigate = useNavigate();

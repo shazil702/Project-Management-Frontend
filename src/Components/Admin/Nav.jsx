@@ -1,4 +1,4 @@
-import Admin from '../assets/images/Admin.jpeg';
+import Admin from '../../assets/images/Admin.jpeg';
 
 const NavBar = ({sidebar}) => {
     return(

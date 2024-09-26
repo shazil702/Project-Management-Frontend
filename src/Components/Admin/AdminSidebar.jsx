@@ -1,4 +1,4 @@
-import Logo from '../assets/images/Logo.jpg';
+import Logo from '../../assets/images/Logo.jpg';
 import { IoMenu } from "react-icons/io5";
 
 const AdminSidebar = ({sidebar,updateSidebar}) => {

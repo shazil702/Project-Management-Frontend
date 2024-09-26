@@ -1,6 +1,5 @@
-import HrDashboard from "../Components/HrDashboard"
-import HrNav from "../Components/HrNav"
-import HrSidebar from "../Components/HrSidebar"
+import HrNav from "../Components/Hr/HrNav"
+import HrSidebar from "../Components/Hr/HrSidebar"
 import { Outlet } from "react-router-dom";
 
 

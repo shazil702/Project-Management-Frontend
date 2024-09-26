@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom"
-import AdminLogin from "../Components/AdminLogin"
-import AdminPanel from "../Components/AdminPanel"
+import AdminLogin from "../Components/Admin/AdminLogin"
+import AdminPanel from "../Components/Admin/AdminPanel"
 import AdminLayout from "../layouts/AdminLayout"
-import AdminMessage from "../Components/AdminMessage"
+import AdminMessage from "../Components/Admin/AdminMessage"
 
 const AdminRoutes = () => {
     return (

@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./Components/Login";
+import Login from "./Components/Common/Login";
 import AdminRoutes from "./routes/AdminRoutes";
 import HrRoutes from "./routes/HrRoutes";
-import ProjectDetail from "./Components/ProjectDetail";
-import TaskDetail from "./Components/TaskDetail";
-import EmployeeProfile from "./Components/EmployeeProfile";
+import ProjectDetail from "./Components/TL/ProjectDetail";
+import TaskDetail from "./Components/Employee/TaskDetail";
+import EmployeeProfile from "./Components/Employee/EmployeeProfile";
 
 
 function App() {
