@@ -4,7 +4,7 @@ const TaskDetail = () => {
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
-      <aside className="bg-black text-white w-1/4 h-full p-5 flex flex-col items-center">
+      {/* <aside className="bg-black text-white w-1/4 h-full p-5 flex flex-col items-center">
         <div className="bg-gray-400 rounded-full w-16 h-16 mb-6"></div>
         <div className="relative w-full">
           <input
@@ -13,17 +13,17 @@ const TaskDetail = () => {
             className="w-full bg-gray-200 p-2 rounded-full text-black placeholder-gray-500"
           />
         </div>
-      </aside>
+      </aside> */}
 
       {/* Main Content */}
       <main className="flex-1 p-10">
-        <div className="flex justify-between items-center mb-10">
+        {/* <div className="flex justify-between items-center mb-10">
           <h1 className="text-3xl font-bold">Task Detail</h1>
           <div className="flex items-center">
             <span className="mr-4 text-lg">Team Lead</span>
             <div className="bg-gray-300 rounded-full w-12 h-12"></div>
           </div>
-        </div>
+        </div> */}
 
         <div className="grid grid-cols-3 gap-6">
           {/* To Do Section */}
