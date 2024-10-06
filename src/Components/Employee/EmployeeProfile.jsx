@@ -1,5 +1,27 @@
+import { useEffect, useState } from 'react';
 import Admin from '../../assets/images/Admin.jpeg'
+import { baseUrl } from '../../constants/constants';
+import axios from 'axios';
+
 const EmployeeProfile = () => {
+    const [employee, setEmployee] = useState([]);
+    useEffect(()=>{
+        const fetchdata = async ()=>{
+            try{
+                const response = await axios.get(`${baseUrl}/employee/profile/`,{
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    }
+                })
+                setEmployee(response.data);
+                console.log(response.data);
+                
+        }catch(error){
+            console.log(error);
+        }
+    }
+    fetchdata()
+    },[]);    
     return (
         <div className="min-h-screen bg-purple-900 text-white">
         <div className="flex justify-center">
@@ -22,7 +44,7 @@ const EmployeeProfile = () => {
                         <label>Full Name</label>
                         <input
                             type="text"
-                            value="John Doe"
+                            value={employee?.profile?.employee?.username}
                             className="bg-purple-600 p-2 rounded-md text-white"
                             readOnly
                         />
@@ -31,7 +53,7 @@ const EmployeeProfile = () => {
                         <label>Phone Number</label>
                         <input
                             type="text"
-                            value="123-456-7890"
+                            value={employee?.profile?.employee?.phone}
                             className="bg-purple-600 p-2 rounded-md text-white"
                             readOnly
                         />
@@ -40,7 +62,7 @@ const EmployeeProfile = () => {
                         <label>Email</label>
                         <input
                             type="email"
-                            value="johndoe@example.com"
+                            value={employee?.profile?.employee?.email}
                             className="bg-purple-600 p-2 rounded-md text-white"
                             readOnly
                         />
@@ -49,7 +71,7 @@ const EmployeeProfile = () => {
                         <label>Joining Date</label>
                         <input
                             type="text"
-                            value="01/01/2020"
+                            value={employee?.profile?.joined_date}
                             className="bg-purple-600 p-2 rounded-md text-white"
                             readOnly
                         />
@@ -58,7 +80,7 @@ const EmployeeProfile = () => {
                         <label>Team</label>
                         <input
                             type="text"
-                            value="Development"
+                            value={employee?.profile?.team}
                             className="bg-purple-600 p-2 rounded-md text-white"
                             readOnly
                         />
@@ -67,7 +89,7 @@ const EmployeeProfile = () => {
                         <label>Role</label>
                         <input
                             type="text"
-                            value="Software Engineer"
+                            value={employee?.profile?.department}
                             className="bg-purple-600 p-2 rounded-md text-white"
                             readOnly
                         />
@@ -81,7 +103,7 @@ const EmployeeProfile = () => {
                         <label>ID Number</label>
                         <input
                             type="text"
-                            value="ID12345"
+                            value={employee?.personal_info?.idNumber}
                             className="bg-purple-600 p-2 rounded-md text-white"
                             readOnly
                         />
@@ -90,7 +112,7 @@ const EmployeeProfile = () => {
                         <label>PAN Number</label>
                         <input
                             type="text"
-                            value="ABCP1234D"
+                            value={employee?.personal_info?.pan}
                             className="bg-purple-600 p-2 rounded-md text-white"
                             readOnly
                         />
@@ -99,7 +121,7 @@ const EmployeeProfile = () => {
                         <label>Birthday</label>
                         <input
                             type="text"
-                            value="01/01/1990"
+                            value={employee?.personal_info?.dob}
                             className="bg-purple-600 p-2 rounded-md text-white"
                             readOnly
                         />
@@ -115,7 +137,7 @@ const EmployeeProfile = () => {
                         <label>Account Number</label>
                         <input
                             type="text"
-                            value="123456789"
+                            value={employee?.personal_info?.bankAccountNumber}
                             className="bg-purple-600 p-2 rounded-md text-white"
                             readOnly
                         />
@@ -124,7 +146,7 @@ const EmployeeProfile = () => {
                         <label>IFSC</label>
                         <input
                             type="text"
-                            value="ABC123456"
+                            value={employee?.personal_info?.bankIFSC}
                             className="bg-purple-600 p-2 rounded-md text-white"
                             readOnly
                         />
@@ -133,7 +155,7 @@ const EmployeeProfile = () => {
                         <label>Branch</label>
                         <input
                             type="text"
-                            value="XYZ Branch"
+                            value={employee?.personal_info?.bankBranch}
                             className="bg-purple-600 p-2 rounded-md text-white"
                             readOnly
                         />
@@ -155,7 +177,7 @@ const EmployeeProfile = () => {
                         <label>Salary Amount</label>
                         <input
                             type="text"
-                            value="$5000"
+                            value={employee?.personal_info?.salaryAmount}
                             className="bg-purple-600 p-2 rounded-md text-white"
                             readOnly
                         />

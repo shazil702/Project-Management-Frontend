@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import EmployeeLayout from "../layouts/EmployeeLayout";
-import TaskDetail from "../Components/Employee/TaskDetail";
+import {TaskDetail} from "../Components/Employee/TaskDetail";
 import EmployeeProfile from "../Components/Employee/EmployeeProfile";
 
 const EmployeeRoutes = ()=>{

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import User1 from '../../assets/images/User1.jpeg';
 import { PieChart, Pie, Tooltip, BarChart,Bar} from "recharts";
 import axios from 'axios';
+import { baseUrl } from '../../constants/constants';
 
 const AdminPanel = ({sidebar}) => {
   const [employees, setEmployees] = useState([]);
@@ -17,7 +18,7 @@ const barData = [
 useEffect(()=>{
   const fetchdata = async ()=>{
     try{
-      const response = await axios.get('http://127.0.0.1:8000/hr/viewEmployee/')
+      const response = await axios.get(`${baseUrl}/hr/viewEmployee/`)
       setEmployees(response.data)
       console.log(response.data);
       

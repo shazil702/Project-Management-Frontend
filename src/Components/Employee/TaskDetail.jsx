@@ -1,74 +1,219 @@
-import React from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { baseUrl } from "../../constants/constants";
+import { motion } from "framer-motion";
 
-const TaskDetail = () => {
+
+
+export const TaskDetail= () => {
+  const [cards, setCards] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+       try {
+         const response = await axios.get(`${baseUrl}/project/taskDetails/1/`,{
+           headers: {
+             'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+         }
+       });
+       setCards(response.data);
+       console.log(response.data);
+   }catch (e) {
+     console.log(e);
+   }
+ }
+     fetchData();
+ },[]);
+  
+
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      {/* <aside className="bg-black text-white w-1/4 h-full p-5 flex flex-col items-center">
-        <div className="bg-gray-400 rounded-full w-16 h-16 mb-6"></div>
-        <div className="relative w-full">
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-full bg-gray-200 p-2 rounded-full text-black placeholder-gray-500"
-          />
-        </div>
-      </aside> */}
+    <div className="h-screen w-full bg-neutral-900 text-neutral-50">
+    <div className="flex h-full w-full gap-3 overflow-scroll p-12">
+      <Column
+        title="Backlog"
+        column="backlog"
+        headingColor="text-neutral-500"
+        cards={cards}
+        setCards={setCards}
+      />
+      <Column
+        title="In progress"
+        column="inProgress"
+        headingColor="text-blue-200"
+        cards={cards}
+        setCards={setCards}
+      />
+      <Column
+        title="Complete"
+        column="completed"
+        headingColor="text-emerald-200"
+        cards={cards}
+        setCards={setCards}
+      />
+      </div>
+    </div>
+    
+  );
+}
 
-      {/* Main Content */}
-      <main className="flex-1 p-10">
-        {/* <div className="flex justify-between items-center mb-10">
-          <h1 className="text-3xl font-bold">Task Detail</h1>
-          <div className="flex items-center">
-            <span className="mr-4 text-lg">Team Lead</span>
-            <div className="bg-gray-300 rounded-full w-12 h-12"></div>
-          </div>
-        </div> */}
+const Column = ({ title, headingColor, cards, column, setCards }) => {
+  
+  const [active, setActive] = useState(false);
 
-        <div className="grid grid-cols-3 gap-6">
-          {/* To Do Section */}
-          <section className="bg-gray-100 p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl font-bold mb-4">To DO</h2>
-            <ul className="list-disc ml-5 space-y-2">
-              <li>ToDo task</li>
-              <li>ToDo task</li>
-              <li>ToDo task</li>
-              <li>ToDo task</li>
-            </ul>
-          </section>
+  const handleDragStart = (e, card) => {
+    e.dataTransfer.setData("cardId", card.id);
+  };
+  
 
-          {/* On Progress Section */}
-          <section className="bg-gray-100 p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl font-bold mb-4">On Progress</h2>
-            <ul className="list-disc ml-5 space-y-2">
-              <li>On Progress Task</li>
-              <li>On Progress Task</li>
-              <li>On Progress Task</li>
-            </ul>
-          </section>
+  const handleDragEnd = (e) => {
+    const cardId = parseInt(e.dataTransfer.getData("cardId"));
+    
+    setActive(false);
+    clearHighlights();
+  
+    const indicators = getIndicators();
+    const { element } = getNearestIndicator(e, indicators);
+    const before = element.dataset.before || "-1";
+    
+    if (before !== cardId) {
+      let copy = [...cards];
+      console.log(copy);
+      let cardToTransfer = copy.find((c) => c.id === cardId);
+      console.log(cardToTransfer);
+      
+      if (!cardToTransfer) return;
+      
+      cardToTransfer = { ...cardToTransfer, status: column }; // Update the column
+      console.log(cardToTransfer);
+      
+      // Remove card from the original column
+      copy = copy.filter((c) => c.id !== cardId);
+      console.log(copy);
+      
+      // Insert card in the new position
+      const moveToBack = before === "-1";
+      if (moveToBack) {
+        copy.push(cardToTransfer);
+      } else {
+        const insertAtIndex = copy.findIndex((el) => el.id === before);
+        if (insertAtIndex === undefined) return;
+        copy.splice(insertAtIndex, 0, cardToTransfer);
+      }
+      
+      
+      setCards(copy);
+    }
+  };
+  
 
-          {/* Completed Section */}
-          <section className="bg-gray-100 p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl font-bold mb-4">Completed</h2>
-            <ul className="list-disc ml-5 space-y-2">
-              <li>Completed Task</li>
-              <li>Completed Task</li>
-            </ul>
-          </section>
-        </div>
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    highlightIndicator(e);
 
-        {/* Project Description */}
-        <section className="mt-10 bg-gray-100 p-6 rounded-lg shadow-lg">
-          <h2 className="text-xl font-bold mb-4">Project Description</h2>
-          <p>
-            Lorem ipsum dolor sit amet, id consequuntur laboriosam aut incidunt
-            assumenda nam esse aliquam non nesciunt iste et dicta consequuntur
-            qui architecto soluta.
-          </p>
-        </section>
-      </main>
+    setActive(true);
+  };
+
+  const clearHighlights = (els) => {
+    const indicators = els || getIndicators();
+
+    indicators.forEach((i) => {
+      i.style.opacity = "0";
+    });
+  };
+
+  const highlightIndicator = (e) => {
+    const indicators = getIndicators();
+
+    clearHighlights(indicators);
+
+    const el = getNearestIndicator(e, indicators);
+
+    el.element.style.opacity = "1";
+  };
+
+  const getNearestIndicator = (e, indicators) => {
+    const DISTANCE_OFFSET = 50;
+  
+    const el = indicators.reduce(
+      (closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = e.clientY - (box.top + DISTANCE_OFFSET); // Changed to get the vertical center of the indicator
+        
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child };
+        } else {
+          return closest;
+        }
+      },
+      {
+        offset: Number.NEGATIVE_INFINITY,
+        element: indicators[indicators.length - 1],
+      }
+    );
+    return el;
+  };
+   
+
+  const getIndicators = () => {
+    return Array.from(document.querySelectorAll(`[data-column="${column}"]`));
+  };
+
+  const handleDragLeave = () => {
+    clearHighlights();
+    setActive(false);
+  };
+
+  const filteredCards = cards.filter((c) => c.status === column);
+
+  return (
+    <div className="w-56 shrink-0">
+      <div className="mb-3 flex items-center justify-between">
+        <h3 className={`font-medium ${headingColor}`}>{title}</h3>
+        <span className="rounded text-sm text-neutral-400">
+          {filteredCards.length}
+        </span>
+      </div>
+      <div
+        onDrop={handleDragEnd}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        className={`h-full w-full transition-colors ${
+          active ? "bg-neutral-800/50" : "bg-neutral-800/0"
+        }`}
+      >
+        {filteredCards.map((c) => {
+          return <Card key={c.id} {...c} handleDragStart={handleDragStart} />;
+        })}
+        <DropIndicator beforeId={null} column={column} />
+      </div>
     </div>
   );
 };
 
-export default TaskDetail;
+const Card = ({ taskName, id, status, handleDragStart }) => {
+  
+  return (
+    <>
+      <DropIndicator beforeId={id} column={status} />
+      <motion.div
+        layout
+        layoutId={id}
+        draggable="true"
+        onDragStart={(e) => handleDragStart(e, { taskName, id, status })}
+        className="cursor-grab rounded border border-neutral-700 bg-neutral-800 p-3 active:cursor-grabbing"
+      >
+        <p className="text-sm text-neutral-100">{taskName}</p>
+      </motion.div>
+    </>
+  );
+};
+
+const DropIndicator = ({ beforeId, column }) => {
+  
+  return (
+    <div
+      data-before={beforeId || "-1"}
+      data-column={column}
+      className="my-0.5 h-0.5 w-full bg-violet-400 opacity-0"
+    />
+  );
+};

@@ -33,6 +33,10 @@ function Login() {
         };
         try{
             const {data} = await axios.post(`${baseUrl}/authentication/verifyOTP/`,user);
+            localStorage.clear();
+            console.log(data);
+            localStorage.setItem('access_token',data.access_token);
+            localStorage.setItem('refresh_token',data.refresh_token);
             if(data.role === 'HR'){
                 navigate('/hr/')
             }
