@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import { baseUrl } from "../../constants/constants";
 import { motion } from "framer-motion";
 
-
-
 export const TaskDetail= () => {
   const [cards, setCards] = useState([])
   useEffect(() => {
@@ -23,8 +21,6 @@ export const TaskDetail= () => {
  }
      fetchData();
  },[]);
-  
-
   return (
     <div className="h-screen w-full bg-neutral-900 text-neutral-50">
     <div className="flex h-full w-full gap-3 overflow-scroll p-12">
@@ -63,7 +59,6 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
     e.dataTransfer.setData("cardId", card.id);
   };
   
-
   const handleDragEnd = (e) => {
     const cardId = parseInt(e.dataTransfer.getData("cardId"));
     
@@ -82,14 +77,10 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
       
       if (!cardToTransfer) return;
       
-      cardToTransfer = { ...cardToTransfer, status: column }; // Update the column
+      cardToTransfer = { ...cardToTransfer, status: column };
       console.log(cardToTransfer);
-      
-      // Remove card from the original column
       copy = copy.filter((c) => c.id !== cardId);
       console.log(copy);
-      
-      // Insert card in the new position
       const moveToBack = before === "-1";
       if (moveToBack) {
         copy.push(cardToTransfer);
@@ -98,13 +89,10 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
         if (insertAtIndex === undefined) return;
         copy.splice(insertAtIndex, 0, cardToTransfer);
       }
-      
-      
       setCards(copy);
     }
   };
   
-
   const handleDragOver = (e) => {
     e.preventDefault();
     highlightIndicator(e);
@@ -132,11 +120,10 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
 
   const getNearestIndicator = (e, indicators) => {
     const DISTANCE_OFFSET = 50;
-  
     const el = indicators.reduce(
       (closest, child) => {
         const box = child.getBoundingClientRect();
-        const offset = e.clientY - (box.top + DISTANCE_OFFSET); // Changed to get the vertical center of the indicator
+        const offset = e.clientY - (box.top + DISTANCE_OFFSET);
         
         if (offset < 0 && offset > closest.offset) {
           return { offset: offset, element: child };
@@ -152,7 +139,6 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
     return el;
   };
    
-
   const getIndicators = () => {
     return Array.from(document.querySelectorAll(`[data-column="${column}"]`));
   };
@@ -163,7 +149,6 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
   };
 
   const filteredCards = cards.filter((c) => c.status === column);
-
   return (
     <div className="w-56 shrink-0">
       <div className="mb-3 flex items-center justify-between">
@@ -190,7 +175,6 @@ const Column = ({ title, headingColor, cards, column, setCards }) => {
 };
 
 const Card = ({ taskName, id, status, handleDragStart }) => {
-  
   return (
     <>
       <DropIndicator beforeId={id} column={status} />
@@ -208,7 +192,6 @@ const Card = ({ taskName, id, status, handleDragStart }) => {
 };
 
 const DropIndicator = ({ beforeId, column }) => {
-  
   return (
     <div
       data-before={beforeId || "-1"}
