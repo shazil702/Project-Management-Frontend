@@ -8,7 +8,7 @@ const EmployeeRoutes = ()=>{
     return(
         <Routes>
             <Route element={<EmployeeLayout/>}>
-            <Route path="/" element={<ProjectViewTable/>}/>
+            <Route path="/" element={<ProjectViewTable nextpage={'taskDetail'}/>}/>
             <Route path="/taskDetail" element={<TaskDetail/>}/>
             <Route path="/profile" element={<EmployeeProfile/>}/>
             </Route>

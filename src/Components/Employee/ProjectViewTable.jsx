@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { baseUrl } from "../../constants/constants";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const ProjectViewTable = () => {
+const ProjectViewTable = ({nextpage}) => {
     const navigate = useNavigate();
     const [projects, setProjects] = useState([]);
     useEffect(()=>{
@@ -39,7 +39,7 @@ const ProjectViewTable = () => {
           </thead>
           <tbody>
             {projects.map((project, index) => (
-              <tr key={index} className="text-center cursor-pointer" onClick={()=> navigate(`taskDetail?id=${project.id}`)}>
+              <tr key={index} className="text-center cursor-pointer" onClick={()=> navigate(`${nextpage}?id=${project.id}`)}>
                 <td className="p-2 border">{project.id}</td>
                 <td className="p-2 border">{project.projectName}</td>
                 <td className="p-2 border">{project.status}</td>

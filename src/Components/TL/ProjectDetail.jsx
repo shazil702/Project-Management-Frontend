@@ -1,17 +1,29 @@
-import React from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { baseUrl } from "../../constants/constants";
 
 const ProjectDetail = () => {
+  const [project, setProject] = useState();
+  useEffect(()=>{
+    const fetchData = async ()=>{
+      try{
+        const response = await axios.get(`${baseUrl}/project/projectDetail/1/`)
+        setProject(response.data);
+  }catch(e){
+    console.log(e);
+  }
+}
+  fetchData()
+},[]);
   return (
     <div className="flex h-screen">
       <main className="flex-1 p-10">
-        <h1 className="text-3xl font-bold mb-8">Project Name</h1>
+        <h1 className="text-3xl font-bold mb-8">{project?.projectName}</h1>
         <div className="grid grid-cols-2 gap-6">
           <section className="bg-gray-100 p-6 rounded-lg shadow-lg">
             <h2 className="text-xl font-bold mb-4">Project Description</h2>
             <p className="mb-4">
-              Lorem ipsum dolor sit amet. Rem nobis consequatur sit quasi
-              possimus non galisum ipsa. Qui velit laboriosam id rerum ipsam nam
-              reiciendis voluptate.
+              {project?.description}
             </p>
             <h3 className="text-lg font-semibold mb-2">Requirements</h3>
             <ul className="list-disc ml-5">
