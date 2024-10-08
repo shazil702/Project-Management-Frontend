@@ -2,13 +2,17 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { baseUrl } from "../../constants/constants";
 import { motion } from "framer-motion";
+import { useSearchParams } from "react-router-dom";
 
 export const TaskDetail= () => {
   const [cards, setCards] = useState([])
+  const [searchParams] = useSearchParams();
+  const projectId = searchParams.get('id');
+
   useEffect(() => {
     const fetchData = async () => {
        try {
-         const response = await axios.get(`${baseUrl}/project/taskDetails/1/`,{
+         const response = await axios.get(`${baseUrl}/project/taskDetails/${projectId}/`,{
            headers: {
              'Authorization': `Bearer ${localStorage.getItem('access_token')}`
          }
