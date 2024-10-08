@@ -3,6 +3,7 @@ import Login from "./Components/Common/Login";
 import AdminRoutes from "./routes/AdminRoutes";
 import HrRoutes from "./routes/HrRoutes";
 import EmployeeRoutes from "./routes/EmployeeRoutes";
+import TLRoutes from "./routes/TLRoutes";
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <Route path="/admin/*" element={<AdminRoutes/>}/>
     <Route path="/hr/*" element={<HrRoutes/>}/>
     <Route path="/employee/*" element={<EmployeeRoutes/>}/>
+    <Route path="/tl/*" element={<TLRoutes/>}/>
     </Routes>
     </BrowserRouter>
   )
