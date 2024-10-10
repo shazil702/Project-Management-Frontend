@@ -4,17 +4,39 @@ import { baseUrl } from "../../constants/constants";
 
 const ProjectDetail = () => {
   const [project, setProject] = useState();
+  const [statusColor, setStatusColor] = useState('');
   useEffect(()=>{
     const fetchData = async ()=>{
       try{
         const response = await axios.get(`${baseUrl}/project/projectDetail/1/`)
         setProject(response.data);
+        console.log(response.data);
+        
   }catch(e){
     console.log(e);
   }
 }
   fetchData()
 },[]);
+useEffect(()=>{
+  const getProjectStatusColor = () => {
+    switch (project?.status) {
+      case 'completed':
+        setStatusColor('bg-green-500 text-white');
+        break;
+      case 'inProgress':
+        setStatusColor('bg-yellow-500 text-white');
+        break;
+      case 'notStarted':
+        setStatusColor('bg-red-500 text-white');
+        break;
+      default:
+        setStatusColor('bg-gray-200 text-gray-600');
+        break;
+    }
+  }
+  getProjectStatusColor();
+},[project])
   return (
     <div className="flex h-screen">
       <main className="flex-1 p-10">
@@ -37,14 +59,16 @@ const ProjectDetail = () => {
           </section>
           <section className="grid grid-cols-2 gap-6">
             <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
-              <h2 className="text-xl font-bold mb-4">Recent Activities</h2>
               <div className="space-y-4">
-                <div className="bg-gray-200 rounded-lg h-12"></div>
-                <div className="bg-gray-200 rounded-lg h-12"></div>
-                <div className="bg-gray-200 rounded-lg h-12"></div>
+              <h2 className="text-xl font-semibold mb-4">Status</h2>
+                <div className={`${statusColor} rounded-lg h-12`}>{project?.status}</div>
+                <h2 className="text-xl font-semibold mb-4">Start Date</h2>
+                <div className="bg-gray-200 rounded-lg h-12">{project?.startDate}</div>
+                <h2 className="text-xl font-semibold mb-4">Due Date</h2>
+                <div className="bg-gray-200 rounded-lg h-12">{project?.dueDate}</div>
               </div>
             </div>
-            <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
+            {/* <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
               <h2 className="text-xl font-bold mb-4">Calendar</h2>
               <div className="grid grid-cols-7 gap-2">
                 {Array.from({ length: 30 }).map((_, i) => (
@@ -59,7 +83,7 @@ const ProjectDetail = () => {
                 ))}
               </div>
               <p className="mt-4">13. Started Project</p>
-            </div>
+            </div> */}
           </section>
         </div>
       </main>
