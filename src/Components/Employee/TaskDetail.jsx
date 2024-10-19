@@ -24,7 +24,41 @@ export const TaskDetail= () => {
    }
  }
      fetchData();
+     return()=>{
+      if (cards.length > 0) {
+      saveChanges();
+      }
+     }
  },[]);
+ const saveChanges = async () => {
+  try {
+    console.log(cards);
+
+    const response = await axios.put(`${baseUrl}/project/taskDetails/${projectId}/`, 
+      cards,
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        }
+      }
+    );
+    setCards(response.data);
+    console.log(response.data);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+useEffect(() => {
+  const handleRefresh = (event) => {
+    saveChanges();
+  };
+  window.addEventListener("beforeunload", handleRefresh);
+  return () => {
+    window.removeEventListener("beforeunload", handleRefresh);
+  };
+}, [cards]);
+
   return (
     <div className="h-screen w-full bg-neutral-900 text-neutral-50">
     <div className="flex h-full w-full gap-3 overflow-scroll p-12">

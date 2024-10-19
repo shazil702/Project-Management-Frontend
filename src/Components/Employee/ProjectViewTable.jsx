@@ -45,7 +45,7 @@ const ProjectViewTable = ({nextpage}) => {
                 <td className="p-2 border">{project.status}</td>
                 <td className="p-2 border">{project.startDate}</td>
                 <td className="p-2 border">{project.dueDate}</td>
-                <td className="p-2 border">{project.client}</td>
+                <td className="p-2 border">{project.client.clientName}</td>
               </tr>
             ))}
           </tbody>

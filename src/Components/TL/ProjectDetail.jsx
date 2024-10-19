@@ -38,56 +38,55 @@ useEffect(()=>{
   getProjectStatusColor();
 },[project])
   return (
-    <div className="flex h-screen">
-      <main className="flex-1 p-10">
-        <h1 className="text-3xl font-bold mb-8">{project?.projectName}</h1>
-        <div className="grid grid-cols-2 gap-6">
-          <section className="bg-gray-100 p-6 rounded-lg shadow-lg">
-            <h2 className="text-xl font-bold mb-4">Project Description</h2>
-            <p className="mb-4">
-              {project?.description}
-            </p>
-            <h3 className="text-lg font-semibold mb-2">Requirements</h3>
-            <ul className="list-disc ml-5">
-              <li>Login Page</li>
-              <li>Login Page</li>
-              <li>Login Page</li>
-              <li>Login Page</li>
-              <li>Login Page</li>
-            </ul>
-            <p className="mt-4">(Responsive Login Page with Google authentication)</p>
-          </section>
-          <section className="grid grid-cols-2 gap-6">
-            <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
-              <div className="space-y-4">
+    <div className="bg-gray-100 flex h-screen">
+    <main className="flex-1 p-10">
+      <h1 className="text-3xl font-bold mb-8">{project?.projectName}</h1>
+      <div className="grid grid-cols-2 gap-6">
+        <section className="p-6 rounded-lg shadow-lg">
+          <h2 className="text-xl font-bold mb-4">Project Description</h2>
+          <p className="mb-4">
+            {project?.description}
+          </p>
+        </section>
+        <section className="grid grid-cols-2 gap-6">
+          <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
+            <div className="space-y-4">
               <h2 className="text-xl font-semibold mb-4">Status</h2>
-                <div className={`${statusColor} rounded-lg h-12`}>{project?.status}</div>
-                <h2 className="text-xl font-semibold mb-4">Start Date</h2>
-                <div className="bg-gray-200 rounded-lg h-12">{project?.startDate}</div>
-                <h2 className="text-xl font-semibold mb-4">Due Date</h2>
-                <div className="bg-gray-200 rounded-lg h-12">{project?.dueDate}</div>
-              </div>
+              <div className={`${statusColor} rounded-lg h-12`}>{project?.status}</div>
+              <h2 className="text-xl font-semibold mb-4">Start Date</h2>
+              <div className="bg-gray-200 rounded-lg h-12">{project?.startDate}</div>
+              <h2 className="text-xl font-semibold mb-4">Due Date</h2>
+              <div className="bg-gray-200 rounded-lg h-12">{project?.dueDate}</div>
             </div>
-            {/* <div className="bg-gray-100 p-6 rounded-lg shadow-lg">
-              <h2 className="text-xl font-bold mb-4">Calendar</h2>
-              <div className="grid grid-cols-7 gap-2">
-                {Array.from({ length: 30 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className={`w-8 h-8 rounded-full text-center ${
-                      i === 12 ? "bg-white text-black" : "bg-black text-white"
-                    }`}
-                  >
-                    {i + 1}
-                  </div>
-                ))}
-              </div>
-              <p className="mt-4">13. Started Project</p>
-            </div> */}
-          </section>
+          </div>
+          <div className="bg-blue-100 p-4 rounded-lg flex flex-col items-center">
+            <h2 className="text-xl font-bold mb-4">Client</h2>
+            <img className="w-32 h-32 rounded-full mb-4" src={`${baseUrl}${project?.client?.clientImage}`} />
+            <div className="text-lg font-bold my-1">{project?.client?.clientName}</div>
+            <div className="text-gray-700 my-1">{project?.client?.clientEmail}</div>
+            <div className="text-gray-700">{project?.client?.clientPhone}</div>
+          </div>
+        </section>
+      </div>
+  
+      {/* Team Members Section */}
+      <section className="mt-8">
+        <h2 className="text-2xl font-bold mb-6">Team Members</h2>
+        <div className="flex">
+        {project?.team?.teamMembers?.map(member =>{
+          return (
+            <div key={member.id} className="bg-white p-4 rounded-lg shadow-lg flex flex-col items-center mx-2 w-64">
+              <img className="w-28 h-28 rounded-full mb-4" src={`${baseUrl}${member.img}`} />
+              <h3 className="text-lg font-bold">{member.username}</h3>
+              <p className="text-gray-600">{member.email}</p>
+            </div>
+          )
+        })}
         </div>
-      </main>
-    </div>
+      </section>
+    </main>
+  </div>
+  
   );
 };
 
