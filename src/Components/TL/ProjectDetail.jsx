@@ -68,9 +68,7 @@ useEffect(()=>{
           </div>
         </section>
       </div>
-  
-      {/* Team Members Section */}
-      <section className="mt-8">
+        <section className="mt-8">
         <h2 className="text-2xl font-bold mb-6">Team Members</h2>
         <div className="flex">
         {project?.team?.teamMembers?.map(member =>{
@@ -84,6 +82,29 @@ useEffect(()=>{
         })}
         </div>
       </section>
+      <div className="w-full max-w-4xl mt-8">
+        <h2 className="text-2xl text-center mb-4">Tasks</h2>
+        <table className="min-w-full bg-white border border-gray-300">
+          <thead>
+            <tr className="bg-black text-white">
+              <th className="p-2 border">Id</th>
+              <th className="p-2 border">Name</th>
+              <th className="p-2 border">Status</th>
+              <th className="p-2 border">User</th>
+            </tr>
+          </thead>
+          <tbody>
+            {project?.tasks.map((task) => (
+              <tr key={task.id} className="text-center cursor-pointer">
+                <td className="p-2 border">{task.id}</td>
+                <td className="p-2 border">{task.taskName}</td>
+                <td className="p-2 border">{task.status}</td>
+                <td className="p-2 border">{task.user}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </main>
   </div>
   
