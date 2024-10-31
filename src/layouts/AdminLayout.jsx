@@ -12,14 +12,14 @@ const AdminLayout = () => {
 
   return (
     <div className="flex h-screen bg-gray-100">
-      <AdminSidebar sidebar={sidebar} updateSidebar={updateSidebar} />
+      {/* <AdminSidebar sidebar={sidebar} updateSidebar={updateSidebar} />
             <div className={`flex-1 transition-all duration-300 ease-in-out ${sidebar ? 'ml-64' : 'ml-16'}`}>
-        <NavBar sidebar={sidebar} />
+        <NavBar sidebar={sidebar} /> */}
                 <div className="p-4">
           <Outlet />
         </div>
       </div>
-    </div>
+    // </div>
   );
 };
 export default AdminLayout;
